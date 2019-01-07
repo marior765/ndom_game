@@ -1,27 +1,36 @@
 module Main where
 
 import Lib
+import System.Random
 
 main :: IO ()
-main = 
+main = do
     putStrLn "Guess the number!"
 
-    randomNumber = 5 -- genRandge(0, 101)
+    let randomNumber = randomRIO (1, 10)
 
-    loop $ putStrLn "Enter your number:"
-           input <- getLine
+    result :: Int -> (String, Function)
 
-           putStrLn "You guessed:" ++ input
+    input <- getLine
 
-           result :: Int -> String
+    let result input = 
+        if | randomNumber % input == (0.9..0.8) -> "Wow, very close!"
+        if | randomNumber % input == (0.79..0.6) -> "You are quite close!"
+        if | randomNumber % input == (0.59..0.4) -> "Not bad, but not enough!"
+        if | randomNumber % input == (0.39..0.1) -> "Not even close!"
+        if | randomNumber % input == (0.1..0) -> "Very cold!"
+        if | randomNumber % input == 1 -> "Great!You are won!"
 
-           result input = 
-            if | input == 4 -> "Wow, very close!"
-            if | input == 3 -> "You are quite close!"
-            if | input == 2 -> "Not bad, but not enough!"
-            if | input == 1 -> "Not even close!"
-            if | input == 0 -> "Very cold!"
-            if | input == 5 -> "Great!You are won!"
-                
+    -- num <- randomIO :: IO Float
+    -- print $ pureFunction num
+
+    -- randomNumber = 5 -- genRandge(0, 101)
+
+    -- loop $ putStrLn "Enter your number:"
+    --        input <- getLine
+
+    --        putStrLn "You guessed:" ++ input
+
+
 
 
